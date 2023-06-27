@@ -42,3 +42,19 @@ export const getType = async (req, res) => {
         res.status(500).json(error.message);
     }
 }
+
+const getTypeCount = async (req, res) => {
+    try {
+        const beachType = await Property.countDocuments({ type: "Beach" })
+        const mountainType = await Property.countDocuments({ type: "Mountain" })
+        const villageType = await Property.countDocuments({ type: "Village" })
+
+        res.status(200).json({
+            beach: beachType,
+            mountain: mountainType,
+            village: villageType
+        })
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}
