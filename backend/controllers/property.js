@@ -79,3 +79,13 @@ export const getSpecific = async (req, res) => {
 }
 
 //create a new Property
+
+export const createProperty = async (req, res) => {
+    try {
+        const newProperty = await Property.create({ ...req.body, currentOwner: req.body.id })
+
+        return res.status(201).json(newProperty)
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}
