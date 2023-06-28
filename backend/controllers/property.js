@@ -112,3 +112,21 @@ export const updateProperty = async (req, res) => {
         res.status(500).json(error.message);
     }
 }
+
+// deleting the property 
+
+export const deleteProperty = async (req, res) => {
+    try {
+        const property = await Property.findById(req.params.id)
+
+        if (property.currentOwner !== req.user.id) {
+            throw new Error("You can't delete this Property")
+        } else {
+            await property.deleteOne()
+            res.status(200).json({ msg: "Property has been deleted" })
+        }
+
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}
