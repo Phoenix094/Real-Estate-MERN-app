@@ -60,3 +60,22 @@ export const getTypeCount = async (req, res) => {
         res.status(500).json(error.message);
     }
 }
+
+// get a specific prpperty 
+
+export const getSpecific = async (req, res) => {
+    try {
+        const property = await Property.findById(req.params.id).populate('currentOwner', '-password')
+
+        if (!property) {
+            throw new Error("There is no such Property with that ID")
+
+        } else {
+            res.status(200).json(property)
+        }
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}
+
+//create a new Property
