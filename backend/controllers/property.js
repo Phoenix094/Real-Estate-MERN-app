@@ -1,11 +1,11 @@
-import Property from '../models/Property.js'
+import Property, { findByIdAndUpdate } from '../models/Property.js'
 
 
 //get all Property
 
 export const getAll = async (req, res) => {
     try {
-        const properties = await Property.find({});
+        const properties = await Property.find({}).populate('currentOwner', '-password');
 
         res.status(200).json(properties)
     } catch (error) {
@@ -82,9 +82,32 @@ export const getSpecific = async (req, res) => {
 
 export const createProperty = async (req, res) => {
     try {
-        const newProperty = await Property.create({ ...req.body, currentOwner: req.body.id })
+        const newProperty = await Property.create({ ...req.body, currentOwner: req.user.id })
 
         return res.status(201).json(newProperty)
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}
+
+// Updating the Property
+
+export const updateProperty = async (req, res) => {
+    try {
+        const property = await Property.findById(req.params.id);
+
+        if (property.currentOwner !== req.user.id) {
+            throw new Error("There is no such property")
+        } else {
+            const updatedProperty = await Property.findByIdAndUpdate(
+                req.params.id,
+                { $set: req.body },
+                { new: true }
+            )
+
+            res.status(200).json(updateProperty)
+        }
+
     } catch (error) {
         res.status(500).json(error.message);
     }
