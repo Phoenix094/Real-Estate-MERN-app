@@ -43,11 +43,13 @@ export const getType = async (req, res) => {
     }
 }
 
-const getTypeCount = async (req, res) => {
+// Get all type of property count
+
+export const getTypeCount = async (req, res) => {
     try {
-        const beachType = await Property.countDocuments({ type: "Beach" })
-        const mountainType = await Property.countDocuments({ type: "Mountain" })
-        const villageType = await Property.countDocuments({ type: "Village" })
+        const beachType = await Property.countDocuments({ type: "Beach" }).populate('currentOwner', '-password')
+        const mountainType = await Property.countDocuments({ type: "Mountain" }).populate('currentOwner', '-password')
+        const villageType = await Property.countDocuments({ type: "Village" }).populate('currentOwner', '-password')
 
         res.status(200).json({
             beach: beachType,
