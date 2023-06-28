@@ -11,14 +11,14 @@ router.post('/register', registerUser)
 router.post('/login', loginUser)
 
 
-router.get('/getAll', getAll);
-router.get('/findFetured', getFetured);
-router.get('/find', getType);
-router.get('/find/type', getTypeCount);
-router.get('/find/:id', getSpecific);
+router.get('property/getAll', getAll);
+router.get('property/findFetured', getFetured);
+router.get('property/find', getType);
+router.get('property/find/type', getTypeCount);
+router.get('property/find/:id', getSpecific);
 
-router.post('/', verifyToken, createProperty);
-router.put('/:id', verifyToken, updateProperty);
-router.delete('/:id', verifyToken, deleteProperty)
+router.post('/property/', verifyToken, createProperty);
+router.put('/property/:id', verifyToken, updateProperty);
+router.delete('/property/:id', verifyToken, deleteProperty)
 
 export default router
