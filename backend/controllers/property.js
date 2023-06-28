@@ -1,4 +1,4 @@
-import Property, { findByIdAndUpdate } from '../models/Property.js'
+import Property from '../models/Property.js'
 
 
 //get all Property

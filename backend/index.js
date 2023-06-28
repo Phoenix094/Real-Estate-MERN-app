@@ -29,3 +29,5 @@ mongoose.connect(process.env.URL).then(() => {
 // Routes for the app 
 app.use('/app', routesIndex)
 
+
+// emitter.setMaxListeners()
