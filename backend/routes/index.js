@@ -2,6 +2,7 @@ import express from 'express'
 import { loginUser, registerUser } from '../controllers/user.js'
 import { verifyToken } from "../middlewares/verifyToken.js"
 import { getAll, getFetured, getSpecific, getType, getTypeCount, createProperty, updateProperty, deleteProperty } from '../controllers/property.js'
+import { upload, uploadImage } from '../controllers/upload.js'
 
 const router = express.Router()
 
@@ -20,5 +21,7 @@ router.get('property/find/:id', getSpecific);
 router.post('/property/', verifyToken, createProperty);
 router.put('/property/:id', verifyToken, updateProperty);
 router.delete('/property/:id', verifyToken, deleteProperty)
+
+router.post('/upload/image', upload.single("image"), uploadImage)
 
 export default router
